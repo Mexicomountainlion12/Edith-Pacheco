@@ -1,0 +1,84 @@
+import pygame 
+pygame.init()
+
+screen = pygame.display.set_mode((700,500))
+pygame.display.set_caption("pong")
+
+doExit = False
+
+clock = pygame.time.Clock()
+
+#variables to hold paddle position 
+#these go above game loop
+p1x = 20 
+p1y = 200
+p2x = 650 
+p2y = 200
+
+#ball variable 
+bx = 350 #xposition
+by = 250 #yposition 
+bVx = 5 #x velocity (horizontal speed)
+bVy = 5 # veocity (vertical speed)
+
+# reflect ball off side walls of screen, change score
+if bx < 0: #this has been split up from right wall collision so we can incerease scores 
+  bVx *= -1 
+p2Score += 1 # python doesn't do ++ because its DUMB
+
+while not doExit:
+
+  clock.tick(60)
+
+  for event in pygame.event.get():
+    if event.type == pygame.Quit:
+      doExit = True
+
+  #game logic will go here
+  key = pygame.key.get_pressed()
+  if keys[pygame.K_w]:
+    p1y -=5
+  if keys[pygame.K_s]:
+     p1y +=5
+  if keys[pygame.K_UP]:
+    p2y -=5
+  if keys[pygame.K_DOWN]:
+     p2y +=5
+
+  # ball movement 
+  bx += bVx
+  by +=bVy
+
+  # reflect bll off side walls  of screen 
+  if  bx < 0 or bx + 20 > 700:
+       bVx *= -1
+
+  #ball-paddle reflection
+  if bx < p1x +20 and by + 20 < p1y and by < p1y + 100:
+    bVx *= -1     
+
+  #render section will go here
+  screen.fill((0,0,0))
+
+  #draw a line down the middle 
+  pygame.draw.line(screen(255,255,255),[349,0],[349,500], 5)
+
+  #update the screen
+  pygame.display.flip()
+
+  #draw a rectangle 
+  pygame.draw.rect(screen, (255,255,255),(p1x,p1y,20,100), 1)
+  
+  #draw ball
+  pygame.draw.ellipse(screen, (255, 255, 255), (bx, by, 40, 40))
+  
+  #display scores
+  font = pygame.font.Font(None,74) # use defaul font 
+  text = font.render(str(p1Score),1(255,255,255))
+  screen.blit(text, (250,10))
+  text = font.render(str(p2Score),1(255,255,255))
+  sereen.blit( text, (420,10))
+  
+#END GAME LOOP
+
+pygame.quit()
