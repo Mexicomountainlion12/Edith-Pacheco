@@ -21,7 +21,7 @@ by = 250 #yposition
 bVx = 5 #x velocity (horizontal speed)
 bVy = 5 # veocity (vertical speed)
 
-# reflect ball off side walls of screen, change score
+#reflect ball off side walls of screen, change score
 if bx < 0: #this has been split up from right wall collision so we can incerease scores 
   bVx *= -1 
 p2Score += 1 # python doesn't do ++ because its DUMB
@@ -45,11 +45,11 @@ while not doExit:
   if keys[pygame.K_DOWN]:
      p2y +=5
 
-  # ball movement 
+  #ball movement 
   bx += bVx
   by +=bVy
 
-  # reflect bll off side walls  of screen 
+  #reflect bll off side walls  of screen 
   if  bx < 0 or bx + 20 > 700:
        bVx *= -1
 
